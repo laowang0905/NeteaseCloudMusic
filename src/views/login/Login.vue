@@ -1,19 +1,13 @@
 <template>
-  <div id="app">
-
+  <div class="login-container">
+    
   </div>
 </template>
-
 <script>
-
-
 export default {
-  name: 'app',
-  components: {
-  }
+
 }
 </script>
-
-<style>
+<style lang='less' scoped>
 
 </style>
