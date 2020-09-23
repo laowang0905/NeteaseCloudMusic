@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <Title titleText="登录">
+    <Title :titleText="titleText">
       <template v-slot:left>
         <van-icon name="arrow-left" size="25" class="icon-center" />
       </template>
@@ -10,7 +10,7 @@
         <h1 class="logo">EIHEI</h1>
         <transition name="van-slide-left" mode="out-in">
           <van-form @submit="login" class="login-form" v-if="isRegister" key="login">
-            <van-field v-model="loginForm.username" name="用户名" label="用户名" placeholder="用户名" />
+            <van-field v-model="loginForm.phone" name="手机号" label="帐号" placeholder="请输入手机号" />
             <van-field
               v-model="loginForm.password"
               type="password"
@@ -21,7 +21,10 @@
             <div style="margin: 16px;">
               <van-button round block type="info" native-type="submit" class="login-button">登录</van-button>
             </div>
-            <p class="no-register" @click="isRegister=!isRegister">{{isRegister?'还没账号？去注册':'已有账号，去登陆'}}</p>
+            <p
+              class="no-register"
+              @click="isRegister=!isRegister"
+            >{{isRegister?'还没账号？去注册':'已有账号，去登陆'}}</p>
           </van-form>
           <van-form @submit="register" class="register-form" v-else key="register">
             <van-field v-model="registerForm.phone" label="手机号" placeholder="请输入手机号" />
@@ -36,30 +39,34 @@
             <div style="margin: 16px;">
               <van-button round block type="info" native-type="submit" class="login-button">注册</van-button>
             </div>
-            <p class="no-register" @click="isRegister=!isRegister">{{isRegister?'还没账号？去注册':'已有账号，去登陆'}}</p>
+            <p
+              class="no-register"
+              @click="isRegister=!isRegister"
+            >{{isRegister?'还没账号？去注册':'已有账号，去登陆'}}</p>
           </van-form>
         </transition>
-        
       </div>
     </div>
   </div>
 </template>
 <script>
+import { reqRegister, reqLogin } from "@/network/loginApi.js";
 import Title from "@/components/common/Title.vue";
 import { Icon, Form, Field, Button } from "vant";
 export default {
   data() {
     return {
       loginForm: {
-        username: "",
-        password: ""
+        phone: "15738519818",
+        password: "aizhy1314"
       },
       registerForm: {
         phone: "",
         password: "",
-        email: ""
+        captcha: "",
+        nickname: ""
       },
-      isRegister: false
+      isRegister: true
     };
   },
   components: {
@@ -70,8 +77,22 @@ export default {
     [Button.name]: Button
   },
   methods: {
-    login() {},
-    register() {}
+    async login() {
+      const res = await reqLogin(this.loginForm);
+      console.log(res);
+      this.$store.commit("login/login", res.token);
+      localStorage.uid = res.account.id;
+      // this.$store.dispatch('')
+      this.$router.push("/cloud/home");
+    },
+    async register() {
+      const res = await reqRegister(this.registerForm);
+    }
+  },
+  computed: {
+    titleText() {
+      return this.isRegister ? "登录" : "注册";
+    }
   }
 };
 </script>
@@ -126,6 +147,9 @@ export default {
   .van-field__label {
     color: #fff;
     font-weight: 600;
+  }
+  .van-field__control {
+    color: #fff;
   }
 }
 </style>
