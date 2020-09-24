@@ -83,7 +83,7 @@ export default {
       this.$store.commit("login/login", res.token);
       localStorage.uid = res.account.id;
       // this.$store.dispatch('')
-      this.$router.push("/cloud/home");
+      this.$router.push("/cloud/discover");
     },
     async register() {
       const res = await reqRegister(this.registerForm);

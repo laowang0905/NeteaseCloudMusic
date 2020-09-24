@@ -1,10 +1,12 @@
 import Router from 'vue-router'
 import Vue from 'vue'
-import login from './login/login'
+import login from './login/loginRouter'
 
 const Main = () => import('@/views/main.vue')
-const Home = ()=>import('@/views/home/Home.vue')
-
+const Profile = () => import('@/views/profile/Profile.vue')
+const Discover = ()=>import('@/views/discover/Discover.vue')
+const Yuncun = ()=>import('@/views/yuncun/Yuncun.vue')
+const Video = ()=>import('@/views/video/Video.vue')
 
 Vue.use(Router)
 
@@ -13,12 +15,28 @@ const routes = [
     name: 'main',
     path: '/cloud',
     component: Main,
+    redirect: '/cloud/discover',
     children: [
       {
-        name: "home",
-        path: "/home",
-        component: Home
-      }
+        name: "profile",
+        path: "profile",
+        component: Profile
+      },
+      {
+        name: "discover",
+        path: "discover",
+        component: Discover
+      },
+      {
+        name: "yuncun",
+        path: "yuncun",
+        component: Yuncun
+      },
+      {
+        name: "video",
+        path: "video",
+        component: Video
+      },
     ]
   },
   {

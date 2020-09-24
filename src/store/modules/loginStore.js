@@ -1,4 +1,6 @@
-import {reqUserInfo} from '@/network/loginApi.js'
+import {
+  reqUserInfo
+} from '@/network/loginApi.js'
 export default {
   namespaced: true,
   state: {
@@ -19,8 +21,12 @@ export default {
     }
   },
   actions: {
-    async getUserInfo({commit}) {
-      const res = await reqUserInfo({ uid: localStorage.uid })
+    async getUserInfo({
+      commit
+    }) {
+      const res = await reqUserInfo({
+        uid: localStorage.uid
+      })
       commit('initUserInfo', res)
     }
   }
