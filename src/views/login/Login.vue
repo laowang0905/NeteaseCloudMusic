@@ -84,6 +84,7 @@ export default {
       localStorage.uid = res.account.id;
       // this.$store.dispatch('')
       this.$router.push("/cloud/discover");
+      this.$store.dispatch('login/getUserInfo')
     },
     async register() {
       const res = await reqRegister(this.registerForm);
