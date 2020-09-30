@@ -1,5 +1,8 @@
 <template>
-  <div class="title-container">
+  <div
+    class="title-container"
+    :class="titleCustom"
+  >
     <van-row class="title-wrapper">
       <van-col span="4" class="left">
         <slot name="left"></slot>
@@ -20,7 +23,14 @@ export default {
     titleText: {
       type: String,
       default: "首页"
-    }
+    },
+    bgColor: {
+      type: String,
+      default: ""
+    },
+    textColor: "",
+    fontsize: "",
+    titleCustom: ""
   },
   components: {
     [Button.name]: Button,

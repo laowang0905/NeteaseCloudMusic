@@ -15,29 +15,29 @@ const routes = [
     name: 'main',
     path: '/cloud',
     component: Main,
-    redirect: '/cloud/discover',
-    children: [
-      {
-        name: "profile",
-        path: "profile",
-        component: Profile
-      },
-      {
-        name: "discover",
-        path: "discover",
-        component: Discover
-      },
-      {
-        name: "yuncun",
-        path: "yuncun",
-        component: Yuncun
-      },
-      {
-        name: "video",
-        path: "video",
-        component: Video
-      },
-    ]
+    // redirect: '/cloud/discover',
+    // children: [
+    //   {
+    //     name: "profile",
+    //     path: "profile",
+    //     component: Profile
+    //   },
+    //   {
+    //     name: "discover",
+    //     path: "discover",
+    //     component: Discover
+    //   },
+    //   {
+    //     name: "yuncun",
+    //     path: "yuncun",
+    //     component: Yuncun
+    //   },
+    //   {
+    //     name: "video",
+    //     path: "video",
+    //     component: Video
+    //   },
+    // ]
   },
   {
     path: '/',
@@ -51,7 +51,9 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  
+  if (localStorage.token && localStorage.token !== '') {
+    
+  }
   if (to.matched.some(record => record.meta.requireAuth)) {
     if (localStorage.token) {
       next()

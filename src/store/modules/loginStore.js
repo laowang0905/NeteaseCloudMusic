@@ -16,6 +16,10 @@ export default {
       state.token = ''
       localStorage.token = ''
     },
+    getToken(state) {
+      console.log('gettoken')
+      localStorage.token && (state.token = localStorage.token)
+    },
     initUserInfo(state, userInfo) {
       state.userInfo = userInfo
     }

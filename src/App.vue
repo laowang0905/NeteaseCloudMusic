@@ -12,7 +12,8 @@ export default {
   components: {
   },
   mounted() {
-    this.$store.dispatch('login/getUserInfo')
+    // this.$store.commit('login/getToken')
+    // this.$store.dispatch('login/getUserInfo')
   }
 }
 </script>
