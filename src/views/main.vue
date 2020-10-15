@@ -1,18 +1,16 @@
 <template>
   <div class="main-container">
-    <!-- <Title class="custom">
-      <template v-slot:center>
-        <van-tabs></van-tabs>
-      </template>
-    </Title>-->
-    <van-tabs v-model="activeTabs" line-height="0" lazy-render swipeable sticky>
+    <van-tabs v-model="activeTabs" lazy-render swipeable sticky>
       <template v-slot:nav-left>
-        <van-icon name="chat-o" color="#1989fa" />
+        <van-icon name="apps-o"/>
       </template>
       <van-tab title="我的">1</van-tab>
       <van-tab title="发现">2</van-tab>
       <van-tab title="云村">3</van-tab>
       <van-tab title="视频">4</van-tab>
+      <template v-slot:nav-right>
+        <van-icon name="search" />
+      </template>
     </van-tabs>
   </div>
 </template>
@@ -36,11 +34,15 @@ export default {
 </script>
 <style lang="less" scoped>
 .main-container {
-  .custom {
-    background-color: #fff;
-    font-size: 14px;
-    font-weight: normal;
-    color: #bbb;
+  .van-icon {
+    width: 1rem;
+    margin: 0 .3rem;
+  }
+  .van-icon::before {
+    position: absolute;
+    top: 10px;
+    // left: 0.3rem;
+    color: #666;
   }
 }
 </style>

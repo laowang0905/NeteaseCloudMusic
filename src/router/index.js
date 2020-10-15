@@ -15,29 +15,6 @@ const routes = [
     name: 'main',
     path: '/cloud',
     component: Main,
-    // redirect: '/cloud/discover',
-    // children: [
-    //   {
-    //     name: "profile",
-    //     path: "profile",
-    //     component: Profile
-    //   },
-    //   {
-    //     name: "discover",
-    //     path: "discover",
-    //     component: Discover
-    //   },
-    //   {
-    //     name: "yuncun",
-    //     path: "yuncun",
-    //     component: Yuncun
-    //   },
-    //   {
-    //     name: "video",
-    //     path: "video",
-    //     component: Video
-    //   },
-    // ]
   },
   {
     path: '/',
