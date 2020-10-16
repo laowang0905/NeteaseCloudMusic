@@ -5,24 +5,13 @@
         <van-icon name="apps-o" />
       </template>
       <van-tab v-for="(item, index) in tabsList" :key="index" :title="item.name">
-        <component :is="item.component"></component>
+        
       </van-tab>
-      <!-- <van-tab title="我的">
-        <Profile></Profile>
-      </van-tab>
-      <van-tab title="发现">
-        <Discover></Discover>
-      </van-tab>
-      <van-tab title="云村">
-        <Yuncun></Yuncun>
-      </van-tab>
-      <van-tab title="视频">
-        <Video></Video>
-      </van-tab>-->
       <template v-slot:nav-right>
         <van-icon name="search" />
       </template>
     </van-tabs>
+    <component :is="tabsList[activeTabs].component"></component>
   </div>
 </template>
 <script>
@@ -34,7 +23,7 @@ import Yuncun from "@/views/yuncun/Yuncun";
 import Title from "@/components/common/Title.vue";
 import { Tab, Tabs, Icon } from "vant";
 export default {
-  name: "discover",
+  name: "mainCpn",
   data() {
     return {
       activeTabs: 1,
@@ -59,7 +48,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.main-container {
+.main-container { 
   .van-icon {
     width: 1rem;
     margin: 0 0.3rem;

@@ -5,13 +5,57 @@
         <img :src="item.pic" class="banner" />
       </van-swipe-item>
     </van-swipe>
-    <div>aaaa</div>
+    <div class="icons">
+      <div class="item">
+        <div class="wrap">
+          <img :src="require('@/assets/img/discover/day.png')" />
+        </div>
+        <p>每日推荐</p>
+      </div>
+      <div class="item">
+        <div class="wrap">
+          <img :src="require('@/assets/img/discover/day.png')" />
+        </div>
+        <p>每日推荐</p>
+      </div>
+      <div class="item">
+        <div class="wrap">
+          <img :src="require('@/assets/img/discover/day.png')" />
+        </div>
+        <p>每日推荐</p>
+      </div>
+      <div class="item">
+        <div class="wrap">
+          <img :src="require('@/assets/img/discover/day.png')" />
+        </div>
+        <p>每日推荐</p>
+      </div>
+      <div class="item">
+        <div class="wrap">
+          <img :src="require('@/assets/img/discover/day.png')" />
+        </div>
+        <p>每日推荐</p>
+      </div>
+      <div class="item">
+        <div class="wrap">
+          <img :src="require('@/assets/img/discover/day.png')" />
+        </div>
+        <p>每日推荐</p>
+      </div>
+      <div class="item">
+        <div class="wrap">
+          <img :src="require('@/assets/img/discover/day.png')" />
+        </div>
+        <p>每日推荐</p>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import { Swipe, SwipeItem } from "vant";
+import { Swipe, SwipeItem, Tabs, Tab } from "vant";
 import { reqSwipeLists } from "@/network/discoverApi";
 export default {
+  name: "discover",
   data() {
     return {
       swipeLists: []
@@ -28,7 +72,9 @@ export default {
   },
   components: {
     [Swipe.name]: Swipe,
-    [SwipeItem.name]: SwipeItem
+    [SwipeItem.name]: SwipeItem,
+    [Tab.name]: Tab,
+    [Tabs.name]: Tabs
   },
   mounted() {
     this.initData();
@@ -37,14 +83,41 @@ export default {
 </script>
 <style lang="less" scoped>
 .discover-container {
+  padding: 0 12px;
   .my-swipe {
-    width: 95vw;
+    width: 100%;
     margin: 0 auto;
+    height: 136.5px;
     .van-swipe-item {
       .banner {
         width: 100%;
         border-radius: 8px;
         overflow: hidden;
+      }
+    }
+  }
+  .icons {
+    // width: 100%;
+    white-space: nowrap;
+    overflow-x: scroll; 
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .item {
+      width: 100px;
+      display: inline-block;
+      .wrap {
+        width: 30px;
+        height: 30px;
+        background-color: red;
+        padding: 6px;
+        border-radius: 50%;
+        img {
+          width: 100%;
+        }
+      }
+      p {
+        font-size: 14px;
       }
     }
   }
