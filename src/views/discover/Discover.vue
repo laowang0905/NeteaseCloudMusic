@@ -5,48 +5,54 @@
         <img :src="item.pic" class="banner" />
       </van-swipe-item>
     </van-swipe>
-    <div class="icons">
+    <div ref="icons" class="icons" @scroll="scroll">
       <div class="item">
         <div class="wrap">
           <img :src="require('@/assets/img/discover/day.png')" />
         </div>
-        <p>每日推荐</p>
+        <p>1</p>
       </div>
       <div class="item">
         <div class="wrap">
           <img :src="require('@/assets/img/discover/day.png')" />
         </div>
-        <p>每日推荐</p>
+        <p>2</p>
       </div>
       <div class="item">
         <div class="wrap">
           <img :src="require('@/assets/img/discover/day.png')" />
         </div>
-        <p>每日推荐</p>
+        <p>3</p>
       </div>
       <div class="item">
         <div class="wrap">
           <img :src="require('@/assets/img/discover/day.png')" />
         </div>
-        <p>每日推荐</p>
+        <p>4</p>
       </div>
       <div class="item">
         <div class="wrap">
           <img :src="require('@/assets/img/discover/day.png')" />
         </div>
-        <p>每日推荐</p>
+        <p>5</p>
       </div>
       <div class="item">
         <div class="wrap">
           <img :src="require('@/assets/img/discover/day.png')" />
         </div>
-        <p>每日推荐</p>
+        <p>6</p>
       </div>
       <div class="item">
         <div class="wrap">
           <img :src="require('@/assets/img/discover/day.png')" />
         </div>
-        <p>每日推荐</p>
+        <p>7</p>
+      </div>
+      <div class="item">
+        <div class="wrap">
+          <img :src="require('@/assets/img/discover/day.png')" />
+        </div>
+        <p>8</p>
       </div>
     </div>
   </div>
@@ -58,7 +64,9 @@ export default {
   name: "discover",
   data() {
     return {
-      swipeLists: []
+      swipeLists: [],
+      // 临界值
+      criticality: ""
     };
   },
   methods: {
@@ -68,6 +76,12 @@ export default {
     },
     initData() {
       this.getSwipeLists();
+    },
+    scroll(e) {
+      console.log(e.target, e.target.offsetWidth)
+      const x = e.target.scrollLeft;
+      let flag = x > 0 && x < this.criticality ? false : true;
+      this.$emit("isSwiper", flag);
     }
   },
   components: {
@@ -78,6 +92,8 @@ export default {
   },
   mounted() {
     this.initData();
+    const icons = this.$refs.icons;
+    this.criticality = icons.scrollWidth - icons.offsetWidth
   }
 };
 </script>
@@ -97,9 +113,8 @@ export default {
     }
   }
   .icons {
-    // width: 100%;
     white-space: nowrap;
-    overflow-x: scroll; 
+    overflow-x: scroll;
     &::-webkit-scrollbar {
       display: none;
     }

@@ -1,17 +1,16 @@
 <template>
   <div class="main-container">
-    <van-tabs v-model="activeTabs" lazy-render swipeable sticky line-height="0">
+    <van-tabs v-model="activeTabs" lazy-render :swipeable="swipeable" sticky line-height="0" animated>
       <template v-slot:nav-left>
         <van-icon name="apps-o" />
       </template>
       <van-tab v-for="(item, index) in tabsList" :key="index" :title="item.name">
-        
+        <component :is="item.component" @isSwiper="isSwiper"></component>
       </van-tab>
       <template v-slot:nav-right>
         <van-icon name="search" />
       </template>
     </van-tabs>
-    <component :is="tabsList[activeTabs].component"></component>
   </div>
 </template>
 <script>
@@ -26,6 +25,7 @@ export default {
   name: "mainCpn",
   data() {
     return {
+      swipeable: true,
       activeTabs: 1,
       tabsList: [
         { name: "我的", component: "Profile" },
@@ -44,11 +44,16 @@ export default {
     Profile,
     Video,
     Yuncun
+  },
+  methods: {
+    isSwiper(flag) {
+      this.swipeable = flag
+    }
   }
 };
 </script>
 <style lang="less" scoped>
-.main-container { 
+.main-container {
   .van-icon {
     width: 1rem;
     margin: 0 0.3rem;
