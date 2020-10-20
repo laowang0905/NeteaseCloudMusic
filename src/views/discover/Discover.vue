@@ -5,60 +5,13 @@
         <img :src="item.pic" class="banner" />
       </van-swipe-item>
     </van-swipe>
-    <div ref="icons" class="icons" @scroll="scroll">
-      <div class="item">
-        <div class="wrap">
-          <img :src="require('@/assets/img/discover/day.png')" />
-        </div>
-        <p>1</p>
-      </div>
-      <div class="item">
-        <div class="wrap">
-          <img :src="require('@/assets/img/discover/day.png')" />
-        </div>
-        <p>2</p>
-      </div>
-      <div class="item">
-        <div class="wrap">
-          <img :src="require('@/assets/img/discover/day.png')" />
-        </div>
-        <p>3</p>
-      </div>
-      <div class="item">
-        <div class="wrap">
-          <img :src="require('@/assets/img/discover/day.png')" />
-        </div>
-        <p>4</p>
-      </div>
-      <div class="item">
-        <div class="wrap">
-          <img :src="require('@/assets/img/discover/day.png')" />
-        </div>
-        <p>5</p>
-      </div>
-      <div class="item">
-        <div class="wrap">
-          <img :src="require('@/assets/img/discover/day.png')" />
-        </div>
-        <p>6</p>
-      </div>
-      <div class="item">
-        <div class="wrap">
-          <img :src="require('@/assets/img/discover/day.png')" />
-        </div>
-        <p>7</p>
-      </div>
-      <div class="item">
-        <div class="wrap">
-          <img :src="require('@/assets/img/discover/day.png')" />
-        </div>
-        <p>8</p>
-      </div>
-    </div>
+    <TabBar :tabBarList="tabBarList" ref="tabbar" @scroll.native="tabBarScroll"></TabBar>
   </div>
 </template>
 <script>
 import { Swipe, SwipeItem, Tabs, Tab } from "vant";
+import TabBar from "./components/TabBar";
+
 import { reqSwipeLists } from "@/network/discoverApi";
 export default {
   name: "discover",
@@ -66,7 +19,8 @@ export default {
     return {
       swipeLists: [],
       // 临界值
-      criticality: ""
+      criticality: "",
+      tabBarList: [{ icon: "day.png", text: "每日精选" }]
     };
   },
   methods: {
@@ -77,8 +31,8 @@ export default {
     initData() {
       this.getSwipeLists();
     },
-    scroll(e) {
-      console.log(e.target, e.target.offsetWidth)
+    tabBarScroll(e) {
+      // console.log(e.target, e.target.offsetWidth)
       const x = e.target.scrollLeft;
       let flag = x > 0 && x < this.criticality ? false : true;
       this.$emit("isSwiper", flag);
@@ -88,12 +42,13 @@ export default {
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
     [Tab.name]: Tab,
-    [Tabs.name]: Tabs
+    [Tabs.name]: Tabs,
+    TabBar
   },
   mounted() {
     this.initData();
-    const icons = this.$refs.icons;
-    this.criticality = icons.scrollWidth - icons.offsetWidth
+    const tabbar = this.$refs.tabbar.$el;
+    this.criticality = tabbar.scrollWidth - tabbar.offsetWidth;
   }
 };
 </script>
@@ -109,30 +64,6 @@ export default {
         width: 100%;
         border-radius: 8px;
         overflow: hidden;
-      }
-    }
-  }
-  .icons {
-    white-space: nowrap;
-    overflow-x: scroll;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    .item {
-      width: 100px;
-      display: inline-block;
-      .wrap {
-        width: 30px;
-        height: 30px;
-        background-color: red;
-        padding: 6px;
-        border-radius: 50%;
-        img {
-          width: 100%;
-        }
-      }
-      p {
-        font-size: 14px;
       }
     }
   }
