@@ -5,22 +5,42 @@
         <img :src="item.pic" class="banner" />
       </van-swipe-item>
     </van-swipe>
-    <TabBar :tabBarList="tabBarList" ref="tabbar" @scroll.native="tabBarScroll"></TabBar>
+    <TabBar>
+      <template v-for="(item, index) in tabBarList">
+        <TabBarItem :key="index" :item="item"></TabBarItem>
+      </template>
+    </TabBar>
+    <TabBar>
+      <template v-for="(item, index) in plRecommendList">
+        <PlayListRecommend :key="index" :item="item.uiElement"></PlayListRecommend>
+      </template>
+    </TabBar>
   </div>
 </template>
 <script>
 import { Swipe, SwipeItem, Tabs, Tab } from "vant";
 import TabBar from "./components/TabBar";
+import TabBarItem from "./components/TabBarItem.vue";
+import PlayListRecommend from "./components/PlayListRecommend.vue";
 
-import { reqSwipeLists } from "@/network/discoverApi";
+
+import { reqSwipeLists, reqHomePage } from "@/network/discoverApi";
 export default {
   name: "discover",
   data() {
     return {
       swipeLists: [],
-      // 临界值
-      criticality: "",
-      tabBarList: [{ icon: "day.png", text: "每日精选" }]
+      tabBarList: [
+        { icon: "day.png", text: "每日推荐" },
+        { icon: "fm.png", text: "私人FM" },
+        { icon: "playlist.png", text: "歌单" },
+        { icon: "paihangbang.png", text: "排行榜" },
+        { icon: "liaotian.png", text: "唱聊" },
+        { icon: "zhibo.png", text: "直播" },
+        { icon: "diantai.png", text: "电台" },
+        { icon: "zhuanji.png", text: "数字专辑" }
+      ],
+      plRecommendList: []
     };
   },
   methods: {
@@ -28,14 +48,13 @@ export default {
       const { banners } = await reqSwipeLists({ type: 2 });
       this.swipeLists = banners;
     },
+    async getHomePage() {
+      const { data } = await reqHomePage();
+      this.plRecommendList = data.blocks[0].creatives
+    },
     initData() {
       this.getSwipeLists();
-    },
-    tabBarScroll(e) {
-      // console.log(e.target, e.target.offsetWidth)
-      const x = e.target.scrollLeft;
-      let flag = x > 0 && x < this.criticality ? false : true;
-      this.$emit("isSwiper", flag);
+      this.getHomePage()
     }
   },
   components: {
@@ -43,12 +62,12 @@ export default {
     [SwipeItem.name]: SwipeItem,
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
-    TabBar
+    TabBar,
+    TabBarItem,
+    PlayListRecommend
   },
   mounted() {
     this.initData();
-    const tabbar = this.$refs.tabbar.$el;
-    this.criticality = tabbar.scrollWidth - tabbar.offsetWidth;
   }
 };
 </script>

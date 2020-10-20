@@ -25,20 +25,23 @@ export default {
 
 <style lang="less" scoped>
 .item-container {
-  width: 100px;
+  width: 70px;
   display: inline-block;
   .wrap {
     width: 30px;
     height: 30px;
-    background-color: red;
+    background-color: rgb(241, 68, 68);
     padding: 6px;
     border-radius: 50%;
+    margin: 0 auto;
     img {
       width: 100%;
     }
   }
   p {
     font-size: 14px;
+    text-align: center;
+    margin: 8px;
   }
 }
 </style>

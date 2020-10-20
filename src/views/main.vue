@@ -5,7 +5,7 @@
         <van-icon name="apps-o" />
       </template>
       <van-tab v-for="(item, index) in tabsList" :key="index" :title="item.name">
-        <component :is="item.component" @isSwiper="isSwiper"></component>
+        <component :is="item.component"></component>
       </van-tab>
       <template v-slot:nav-right>
         <van-icon name="search" />
@@ -18,9 +18,9 @@ import Discover from "@/views/discover/Discover";
 import Profile from "@/views/profile/Profile";
 import Video from "@/views/video/Video";
 import Yuncun from "@/views/yuncun/Yuncun";
-
 import Title from "@/components/common/Title.vue";
 import { Tab, Tabs, Icon } from "vant";
+
 export default {
   name: "mainCpn",
   data() {
@@ -49,6 +49,12 @@ export default {
     isSwiper(flag) {
       this.swipeable = flag
     }
+  },
+  mounted() {
+    this.$bus.$on('isSwiper', this.isSwiper)
+  },
+  destroyed() {
+    this.$bus.$off('isSwiper')
   }
 };
 </script>
