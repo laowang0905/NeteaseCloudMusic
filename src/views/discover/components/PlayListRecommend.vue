@@ -18,32 +18,37 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-  .item-container {
-    display: inline-block;
-    width: 100px;
-    margin-right: 10px;
-    &:last-child {
-      margin-right: 0;
-    }
-    img {
-      width: 100%;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    p {
-      font-size: 14px;
-      position: relative;
-      left: -21px;
-      top: -20px;
-      width: 145px;
-      white-space: normal;
-      line-height: 1.5;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      transform: scale(.7);
-    }
+.item-container {
+  // font-size: 0;
+  display: inline-block;
+  vertical-align: top;
+  width: 100px;
+  // height: 174px;
+  margin-right: 10px;
+  &:last-child {
+    margin-right: 0;
   }
+  img {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  p {
+    font-size: 16px;
+    margin: 0;
+    position: relative;
+    left: -21px;
+    top: -5px;
+    width: 140px;
+    height: 45px;
+    white-space: normal;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    transform: scale(0.7);
+  }
+}
 </style>

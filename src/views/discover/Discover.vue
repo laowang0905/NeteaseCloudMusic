@@ -6,13 +6,20 @@
       </van-swipe-item>
     </van-swipe>
     <TabBar>
-      <template v-for="(item, index) in tabBarList">
-        <TabBarItem :key="index" :item="item"></TabBarItem>
+      <template v-slot:content>
+        <template v-for="(item, index) in tabBarList">
+          <TabBarItem :key="index" :item="item"></TabBarItem>
+        </template>
       </template>
     </TabBar>
     <TabBar>
-      <template v-for="(item, index) in plRecommendList">
-        <PlayListRecommend :key="index" :item="item.uiElement"></PlayListRecommend>
+      <template v-slot:title>
+        <SubTitle></SubTitle>
+      </template>
+      <template v-slot:content>
+        <template v-for="(item, index) in plRecommendList">
+          <PlayListRecommend :key="index" :item="item.uiElement"></PlayListRecommend>
+        </template>
       </template>
     </TabBar>
   </div>
@@ -22,7 +29,7 @@ import { Swipe, SwipeItem, Tabs, Tab } from "vant";
 import TabBar from "./components/TabBar";
 import TabBarItem from "./components/TabBarItem.vue";
 import PlayListRecommend from "./components/PlayListRecommend.vue";
-
+import SubTitle from "@/components/common/SubTitle";
 
 import { reqSwipeLists, reqHomePage } from "@/network/discoverApi";
 export default {
@@ -50,11 +57,11 @@ export default {
     },
     async getHomePage() {
       const { data } = await reqHomePage();
-      this.plRecommendList = data.blocks[0].creatives
+      this.plRecommendList = data.blocks[0].creatives;
     },
     initData() {
       this.getSwipeLists();
-      this.getHomePage()
+      this.getHomePage();
     }
   },
   components: {
@@ -64,7 +71,8 @@ export default {
     [Tabs.name]: Tabs,
     TabBar,
     TabBarItem,
-    PlayListRecommend
+    PlayListRecommend,
+    SubTitle
   },
   mounted() {
     this.initData();

@@ -1,44 +1,26 @@
 <template>
-  <div class="tabbar" @scroll="tabBarScroll" ref="tabbar">
-    <slot></slot>
-    <!-- <template v-for="(item, index) in tabBarList">
-      <TabBarItem :key="index" :item="item"></TabBarItem>
-    </template> -->
+  <div class="container">
+    <slot name="title"></slot>
+    <div class="tabbar" @touchmove="handleTouchMove" @touchend="handleTouchEnd" ref="tabbar">
+      <slot name="content"></slot>
+    </div>
   </div>
 </template>
 <script>
 export default {
   name: "tabbar",
-  // props: {
-  //   tabBarList: {
-  //     type: Array,
-  //     default() {
-  //       return [];
-  //     }
-  //   }
-  // },
-  data() {
-    return {
-      scrollLeft: ""
-    };
-  },
   methods: {
-    tabBarScroll(e) {
-      this.scrollLeft = e.target.scrollLeft;
-    }
-  },
-  mounted() {
-    const tabbar = this.$refs.tabbar;
-    this.criticality = tabbar.scrollWidth - tabbar.offsetWidth;
-  },
-  watch: {
-    // 监听滑动停止
-    scrollLeft(newVal, oldVal) {
-      clearTimeout(this.timer);
-      this.$bus.$emit("isSwiper", false);
-      this.timer = setTimeout(() => {
+    handleTouchMove() {
+      const tabbar = this.$refs.tabbar;
+      const x = tabbar.scrollWidth - tabbar.offsetWidth;
+      if (tabbar.scrollLeft > 0 && tabbar.scrollLeft < x) {
+        this.$bus.$emit("isSwiper", false);
+      } else {
         this.$bus.$emit("isSwiper", true);
-      }, 50);
+      }
+    },
+    handleTouchEnd() {
+      this.$bus.$emit("isSwiper", true);
     }
   }
 };
