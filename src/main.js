@@ -9,6 +9,10 @@ import 'amfe-flexible/index'
 import './assets/css/base.less'
 import 'normalize.css'
 
+import { Lazyload } from 'vant';
+
+Vue.use(Lazyload);
+
 Vue.prototype.$bus = bus
 
 Vue.config.productionTip = false

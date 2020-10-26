@@ -2,7 +2,7 @@
   <div class="discover-container">
     <van-swipe class="my-swipe" :autoplay="5000" indicator-color="#0097dd">
       <van-swipe-item v-for="(item, index) in swipeLists" :key="index">
-        <img :src="item.pic" class="banner" />
+        <img class="banner" v-lazy="item.pic" />
       </van-swipe-item>
     </van-swipe>
     <TabBar>
@@ -14,12 +14,20 @@
     </TabBar>
     <TabBar>
       <template v-slot:title>
-        <SubTitle></SubTitle>
+        <SubTitle :leftText="plSubTitle"></SubTitle>
       </template>
       <template v-slot:content>
         <template v-for="(item, index) in plRecommendList">
-          <PlayListRecommend :key="index" :item="item.uiElement"></PlayListRecommend>
+          <PlayListRecommend :key="index" :item="item.uiElement" :playCount='item.resources[0].resourceExtInfo.playCount'></PlayListRecommend>
         </template>
+      </template>
+    </TabBar>
+    <TabBar>
+      <template v-slot:title>
+        <SubTitle :leftText="styleRecommendTitle"></SubTitle>
+      </template>
+      <template v-slot:content>
+        
       </template>
     </TabBar>
   </div>
@@ -47,7 +55,10 @@ export default {
         { icon: "diantai.png", text: "电台" },
         { icon: "zhuanji.png", text: "数字专辑" }
       ],
-      plRecommendList: []
+      plRecommendList: [],
+      plSubTitle: '',
+      styleRecommendTitle: '',
+      styleRecommend: []
     };
   },
   methods: {
@@ -57,7 +68,10 @@ export default {
     },
     async getHomePage() {
       const { data } = await reqHomePage();
+      this.plSubTitle = data.blocks[0].uiElement.subTitle.title
       this.plRecommendList = data.blocks[0].creatives;
+      this.styleRecommendTitle = data.blocks[1].uiElement.subTitle.title
+      this.styleRecommend = data.blocks[1].creatives
     },
     initData() {
       this.getSwipeLists();
