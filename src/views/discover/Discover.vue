@@ -129,11 +129,11 @@ export default {
     },
     async getHomePage() {
       const { data } = await reqHomePage();
-      this.plSubTitle = data.blocks[0].uiElement.subTitle.title;
-      this.plRecommendList = data.blocks[0].creatives;
-      this.styleRecommendLeftTitle = data.blocks[1].uiElement.subTitle.title;
-      this.styleRecommendRightTitle = data.blocks[1].uiElement.button.text;
-      this.styleRecommend = data.blocks[1].creatives;
+      this.plSubTitle = data.blocks[1].uiElement.subTitle.title||'  ';
+      this.plRecommendList = data.blocks[1].creatives;
+      this.styleRecommendLeftTitle = data.blocks[2].uiElement.subTitle.title;
+      this.styleRecommendRightTitle = data.blocks[2].uiElement.button.text;
+      this.styleRecommend = data.blocks[2].creatives;
     },
     initData() {
       this.getSwipeLists();

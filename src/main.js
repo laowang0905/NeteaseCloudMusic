@@ -9,7 +9,9 @@ import 'amfe-flexible/index'
 import './assets/css/base.less'
 import 'normalize.css'
 
-import { Lazyload } from 'vant';
+import {
+  Lazyload
+} from 'vant';
 
 Vue.use(Lazyload);
 

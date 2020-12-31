@@ -7,3 +7,4 @@ export const reqSwipeLists = (params) => {
 export const reqHomePage = () => {
   return instanceGet('/homepage/block/page')
 }
+
